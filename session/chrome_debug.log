@@ -1,0 +1,4 @@
+[5408:5632:0424/124717.562:INFO:CONSOLE(1)] "Uncaught (in promise) TypeError: Failed to execute 'put' on 'Cache': Partial response (status code 206) is unsupported", source: https://web.whatsapp.com/serviceworker.js (1)
+[5408:5632:0424/124717.562:INFO:CONSOLE(1)] "Uncaught (in promise) TypeError: Failed to execute 'put' on 'Cache': Partial response (status code 206) is unsupported", source: https://web.whatsapp.com/serviceworker.js (1)
+[5408:5632:0424/124717.563:INFO:CONSOLE(1)] "Uncaught (in promise) TypeError: Failed to execute 'put' on 'Cache': Partial response (status code 206) is unsupported", source: https://web.whatsapp.com/serviceworker.js (1)
+[5408:5632:0424/124730.474:ERROR:device_event_log_impl.cc(214)] [12:47:30.460] Bluetooth: bluetooth_adapter_winrt.cc:1075 Getting Default Adapter failed.

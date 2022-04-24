@@ -1,0 +1,12 @@
+2022/04/24-12:53:14.625 adc Recovering log #12
+2022/04/24-12:53:14.659 adc Level-0 table #15: started
+2022/04/24-12:53:14.674 adc Level-0 table #15: 284138 bytes OK
+2022/04/24-12:53:14.688 adc Delete type=0 #12
+2022/04/24-12:53:14.688 adc Delete type=3 #10
+2022/04/24-12:53:25.460 ae4 Moved #15 to level-1 284138 bytes OK: files[ 0 1 1 0 0 0 0 ]
+2022/04/24-12:53:26.379 b00 Compacting 1@1 + 1@2 files
+2022/04/24-12:53:26.513 b00 Generated table #17@1: 19172 keys, 942247 bytes
+2022/04/24-12:53:26.513 b00 Compacted 1@1 + 1@2 files => 942247 bytes
+2022/04/24-12:53:26.526 b00 compacted to: files[ 0 0 1 0 0 0 0 ]
+2022/04/24-12:53:26.526 b00 Delete type=2 #13
+2022/04/24-12:53:26.526 b00 Delete type=2 #15

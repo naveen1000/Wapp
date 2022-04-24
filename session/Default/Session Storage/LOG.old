@@ -1,0 +1,13 @@
+2022/04/24-12:53:12.841 f7c Recovering log #12
+2022/04/24-12:53:12.842 f7c Level-0 table #14: started
+2022/04/24-12:53:12.848 f7c Level-0 table #14: 261 bytes OK
+2022/04/24-12:53:12.864 f7c Delete type=0 #12
+2022/04/24-12:53:12.864 f7c Delete type=3 #10
+2022/04/24-12:53:12.866 f7c Compacting 4@0 + 0@1 files
+2022/04/24-12:53:12.874 f7c Generated table #16@0: 4 keys, 280 bytes
+2022/04/24-12:53:12.874 f7c Compacted 4@0 + 0@1 files => 280 bytes
+2022/04/24-12:53:12.884 f7c compacted to: files[ 0 1 0 0 0 0 0 ]
+2022/04/24-12:53:12.884 f7c Delete type=2 #5
+2022/04/24-12:53:12.884 f7c Delete type=2 #8
+2022/04/24-12:53:12.884 f7c Delete type=2 #11
+2022/04/24-12:53:12.884 f7c Delete type=2 #14

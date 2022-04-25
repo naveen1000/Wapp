@@ -4,9 +4,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from datetime import datetime
 import time
 import os
 import requests
+import pytz
+import mysql.connector
 
 def notify(msg):
     #TelegramChannel chatId -1001181667975   
@@ -21,11 +24,26 @@ INPUT_TXT_BOX = '/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[1]/span[1]/div
 ONLINE_STATUS_LABEL = '/html[1]/body[1]/div[1]/div[1]/div[1]/div[4]/div[1]/header[1]/div[2]/div[2]/span[1]'
 
 # Replace below with the list of targets to be tracked
-TARGETS = {'"contactName1"': '728707556'}
+TARGETS = {'"contactName1"': '7287075568'}
 
-CHROME_DATA_PATH = "user-data-dir=C:\\Users\\Administrator\\Desktop\\Wapp\\session"
-ser = Service("C:\\Users\\Administrator\\Desktop\\Wapp\\chromedriver.exe")
-#CHROME_DATA_PATH = "user-data-dir=/app"
+UTC = pytz.utc
+timeZ_Kl = pytz.timezone('Asia/Kolkata') 
+
+mydb = mysql.connector.connect(
+  host="database-1.cyxb0drmxfft.us-east-1.rds.amazonaws.com",
+  user="admin",
+  password="admin123",
+  database="Wadb"
+)
+mycursor = mydb.cursor()
+
+#CHROME_DATA_PATH = "user-data-dir=C:\\Users\\Administrator\\Desktop\\Wapp\\session"
+#ser = Service("C:\\Users\\Administrator\\Desktop\\Wapp\\chromedriver.exe")
+
+CHROME_DATA_PATH = "user-data-dir=C:\\Users\\naveen.simma\\Desktop\\Projects\\Remote\\Wapp\\session"
+ser = Service("C:\\Users\\naveen.simma\\Desktop\\Projects\\Remote\\Wapp\\chromedriver.exe")
+
+
 options = webdriver.ChromeOptions()
 #Start Added for Heroku
 #optionss.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -47,6 +65,7 @@ options.add_argument("--start-maximized")
 options.add_argument('--disable-gpu')
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument('--no-sandbox')
+
 # Change user-data-dir path with your local path, where you want to save session
 options.add_argument(CHROME_DATA_PATH)
 # Replace below path with the absolute path
@@ -55,9 +74,13 @@ browser = webdriver.Chrome(service=ser,options=options)
 # Load Whatsapp Web page
 browser.get("https://web.whatsapp.com/")
 wait = WebDriverWait(browser, 600)
-contact1_old_status= 'test1'
-contact1_new_status = 'test11'
-print('Started..')
+contact1_old_status= { "status" : "test1", time: ""}
+contact1_new_status = { "status" :"test11", time: ""}
+try:
+    notify('Started..')
+except:
+    print('In notify start')
+
 while True:
     # Clear screen
     #os.system('cls')
@@ -92,14 +115,30 @@ while True:
 
                 try:
                     try:
-                        contact1_new_status = browser.find_element(by = By.XPATH ,value= ONLINE_STATUS_LABEL).text
+                        contact1_new_status['status'] = browser.find_element(by = By.XPATH ,value= ONLINE_STATUS_LABEL).text
+                        now = datetime.now(timeZ_Kl)
+                        t = now.strftime("%H:%M")
                         #print(target + ' is online')
-                        print(contact1_new_status)
-                        if contact1_new_status != contact1_old_status:
-                            print(contact1_new_status)
-                            print(contact1_new_status[19:25])
-                            notify(contact1_new_status)
-                        contact1_old_status = contact1_new_status
+                        #print(contact1_new_status['status'])
+                        if contact1_new_status['status'] != contact1_old_status['status']:
+                            if contact1_new_status['status'] == 'online':                                
+                                print(contact1_new_status['status'] + ' ' + t )
+                                sql = "insert into Wadb.Wastatus (Contact,Status,Creation_date) VALUES ('7287075568','online',NOW())"
+                                mycursor.execute(sql)
+                                mydb.commit()
+                                #print(contact1_new_status['status'][19:23])
+                                notify(contact1_new_status['status'] + ' ' + t)
+                            else:
+                                print( 'offline' + ' ' + t +  ' ' + contact1_new_status['status'] )
+                                #print(contact1_new_status['status'][19:23])
+                                sql = "insert into Wadb.Wastatus (Contact,Status,Creation_date) VALUES ('7287075568','offline',NOW())"
+                                mycursor.execute(sql)
+                                mydb.commit()
+                                try:
+                                    notify('offline')
+                                except:
+                                    print('In Notify')
+                        contact1_old_status['status'] = contact1_new_status['status']
                     except:
                         print('In exception')
                         time.sleep(1)

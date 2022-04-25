@@ -4,7 +4,7 @@ mydb = mysql.connector.connect(
   host="database-1.cyxb0drmxfft.us-east-1.rds.amazonaws.com",
   user="admin",
   password="admin123",
-  database="sys"
+  database="Wadb"
 )
 '''
 print(mydb)
@@ -17,9 +17,9 @@ for x in mycursor:
 '''
 mycursor = mydb.cursor()
 
-mycursor.execute("SELECT * FROM customers")
+sql = "insert into Wadb.Wastatus (Contact,Status,Creation_date) VALUES ('7287075568','Offline',NOW())"
+# val = ("John", "Highway 21")
+mycursor.execute(sql)
+mydb.commit()
 
-myresult = mycursor.fetchall()
-
-for x in myresult:
-  print(x)  
+print(mycursor.rowcount, "record inserted.");
